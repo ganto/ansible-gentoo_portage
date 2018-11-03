@@ -1,0 +1,7 @@
+---
+
+# Portage synchronization configuration
+gentoo_portage_sync_uri: 'rsync://rsync.gentoo.org/gentoo-portage'
+
+# Portage synchronization type ('rsync', 'ssh')
+gentoo_portage_sync_type: 'rsync'

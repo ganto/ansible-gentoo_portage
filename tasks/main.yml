@@ -1,0 +1,17 @@
+---
+
+- name: Create portage repos.conf directory
+  file:
+    path: '/etc/portage/repos.conf'
+    state: directory
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+
+- name: Gentoo portage repository configuration
+  template:
+    src: 'repos.conf-gentoo.conf.j2'
+    dest: '/etc/portage/repos.conf/gentoo.conf'
+    owner: 'root'
+    group: 'root'
+    mode: 0644
