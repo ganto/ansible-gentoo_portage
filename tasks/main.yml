@@ -28,6 +28,7 @@
               ('-' + gentoo_use_disable_global | sort | join (' -'))
               if (gentoo_use_disable_global | length > 0)
               else '' }}"
+  when: (gentoo_use_enable_global | symmetric_difference(gentoo_use_disable_global)) | length > 0
 
 - name: Check if equery is available
   command: which equery
