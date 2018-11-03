@@ -11,3 +11,9 @@ gentoo_portage_sync_repo: True
 
 # Force portage repository synchronization
 gentoo_portage_force_sync: False
+
+# Define global USE flags to be enabled
+gentoo_use_enable_global: []
+
+# Define global USE flags to be disabled
+gentoo_use_disable_global: []
