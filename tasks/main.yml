@@ -53,6 +53,12 @@
     state: present
   register: gentoo_register_package_install
 
+- name: Include tasks to setup eix database
+  include_tasks: setup_eix.yml
+  when:
+    - gentoo_register_package_install is changed
+    - ('eix' in (gentoo_packages_default | union(gentoo_packages)))
+
 - name: Cleanup package sources after installation
   command: eclean-dist
   when:

@@ -1,0 +1,18 @@
+---
+
+- name: Create eix database directory
+  file:
+    path: '/var/cache/eix'
+    state: directory
+    owner: 'portage'
+    group: 'portage'
+    mode: 0755
+
+- name: Check if eix database exists
+  stat:
+    path: '/var/cache/eix/portage.eix'
+  register: gentoo_register_eix_database
+
+- name: Create eix database
+  command: eix-update
+  when: not gentoo_register_eix_database.stat.exists
