@@ -1,30 +1,33 @@
 ---
+##
+# gentoo-portage default configuration
+##
 
-# Portage synchronization configuration
-gentoo_portage_sync_uri: 'rsync://rsync.gentoo.org/gentoo-portage'
+# Portage repository synchronization URL
+gentoo_portage__sync_uri: 'rsync://rsync.gentoo.org/gentoo-portage'
 
-# Portage synchronization type ('rsync', 'ssh')
-gentoo_portage_sync_type: 'rsync'
+# Portage synchronization type (e.g. 'git', 'rsync')
+gentoo_portage__sync_type: 'rsync'
 
 # Synchronize portage repository after configuration update
-gentoo_portage_sync_repo: True
+gentoo_portage__sync: True
 
 # Force portage repository synchronization
-gentoo_portage_force_sync: False
+gentoo_portage__sync_force: False
 
 # Define global USE flags to be enabled
-gentoo_use_enable_global: []
+gentoo_portage__global_use_enable: []
 
-# Define global USE flags to be disabled
-gentoo_use_disable_global: []
+# List of global USE flags to be disabled
+gentoo_portage__global_use_disable: []
 
 # List of default packages to be installed
-gentoo_packages_default:
+gentoo_portage__packages_default:
   - 'eix'
   - 'layman'
 
-# Additional packages to be installed
-gentoo_packages: []
+# List of user-defined packages to be installed
+gentoo_portage__packages: []
 
 # Delete downloaded package source archives after installation
-gentoo_packages_clean_sources: True
+gentoo_portage__packages_clean_sources: True

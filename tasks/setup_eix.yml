@@ -11,8 +11,8 @@
 - name: Check if eix database exists
   stat:
     path: '/var/cache/eix/portage.eix'
-  register: gentoo_register_eix_database
+  register: gentoo_portage__register_eix_database
 
 - name: Create eix database
   command: eix-update
-  when: not gentoo_register_eix_database.stat.exists
+  when: not gentoo_portage__register_eix_database.stat.exists

@@ -15,53 +15,53 @@
     owner: 'root'
     group: 'root'
     mode: 0644
-  register: gentoo_register_portage_config
+  register: gentoo_portage__register_repo_config
 
 - name: Global USE flags configuration
   lineinfile:
     path: '/etc/portage/make.conf'
     regexp: '^USE='
     line: |
-      USE="{{ (gentoo_use_enable_global | sort | join(' ')) + ' '
-              if (gentoo_use_enable_global | length > 0)
+      USE="{{ (gentoo_portage__global_use_enable | sort | join(' ')) + ' '
+              if (gentoo_portage__global_use_enable | length > 0)
               else '' }}{{
-              ('-' + gentoo_use_disable_global | sort | join (' -'))
-              if (gentoo_use_disable_global | length > 0)
+              ('-' + gentoo_portage__global_use_disable | sort | join (' -'))
+              if (gentoo_portage__global_use_disable | length > 0)
               else '' }}"
-  when: (gentoo_use_enable_global | symmetric_difference(gentoo_use_disable_global)) | length > 0
+  when: (gentoo_portage__global_use_enable | symmetric_difference(gentoo_portage__global_use_disable)) | length > 0
 
 - name: Check if equery is available
   command: which equery
   check_mode: no
   changed_when: False
   failed_when: False
-  register: gentoo_register_equery
+  register: gentoo_portage__register_equery
 
 - name: Install gentoolkit for equery support
   command: emerge gentoolkit
-  when: gentoo_register_equery.rc != 0
+  when: gentoo_portage__register_equery.rc != 0
 
 - name: Synchronize portage repository
   portage:
     sync: yes
-  when: ((gentoo_register_portage_config is changed) and
-         (gentoo_portage_sync_repo | bool)) or
-        (gentoo_portage_force_sync | bool)
+  when: ((gentoo_portage__register_repo_config is changed) and
+         (gentoo_portage__sync | bool)) or
+        (gentoo_portage__sync_force | bool)
 
 - name: Install packages
   package:
-    name: '{{ gentoo_packages_default | union(gentoo_packages) }}'
+    name: '{{ gentoo_portage__packages_default | union(gentoo_portage__packages) }}'
     state: present
-  register: gentoo_register_package_install
+  register: gentoo_portage__register_pkg_install
 
 - name: Include tasks to setup eix database
   include_tasks: setup_eix.yml
   when:
-    - gentoo_register_package_install is changed
-    - ('eix' in (gentoo_packages_default | union(gentoo_packages)))
+    - gentoo_portage__register_pkg_install is changed
+    - ('eix' in (gentoo_portage__packages_default | union(gentoo_portage__packages)))
 
 - name: Cleanup package sources after installation
   command: eclean-dist
   when:
-    - gentoo_register_package_install is changed
-    - gentoo_packages_clean_sources | bool
+    - gentoo_portage__register_pkg_install is changed
+    - gentoo_portage__packages_clean_sources | bool
