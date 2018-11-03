@@ -15,3 +15,22 @@
     owner: 'root'
     group: 'root'
     mode: 0644
+  register: gentoo_register_portage_config
+
+- name: Check if equery is available
+  command: which equery
+  check_mode: no
+  changed_when: False
+  failed_when: False
+  register: gentoo_register_equery
+
+- name: Install gentoolkit for equery support
+  command: emerge gentoolkit
+  when: gentoo_register_equery.rc != 0
+
+- name: Synchronize portage repository
+  portage:
+    sync: yes
+  when: ((gentoo_register_portage_config is changed) and
+         (gentoo_portage_sync_repo | bool)) or
+        (gentoo_portage_force_sync | bool)

@@ -5,3 +5,9 @@ gentoo_portage_sync_uri: 'rsync://rsync.gentoo.org/gentoo-portage'
 
 # Portage synchronization type ('rsync', 'ssh')
 gentoo_portage_sync_type: 'rsync'
+
+# Synchronize portage repository after configuration update
+gentoo_portage_sync_repo: True
+
+# Force portage repository synchronization
+gentoo_portage_force_sync: False
