@@ -17,3 +17,14 @@ gentoo_use_enable_global: []
 
 # Define global USE flags to be disabled
 gentoo_use_disable_global: []
+
+# List of default packages to be installed
+gentoo_packages_default:
+  - 'eix'
+  - 'layman'
+
+# Additional packages to be installed
+gentoo_packages: []
+
+# Delete downloaded package source archives after installation
+gentoo_packages_clean_sources: True

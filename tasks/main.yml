@@ -46,3 +46,15 @@
   when: ((gentoo_register_portage_config is changed) and
          (gentoo_portage_sync_repo | bool)) or
         (gentoo_portage_force_sync | bool)
+
+- name: Install packages
+  package:
+    name: '{{ gentoo_packages_default | union(gentoo_packages) }}'
+    state: present
+  register: gentoo_register_package_install
+
+- name: Cleanup package sources after installation
+  command: eclean-dist
+  when:
+    - gentoo_register_package_install is changed
+    - gentoo_packages_clean_sources | bool
