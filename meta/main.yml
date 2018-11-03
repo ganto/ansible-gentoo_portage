@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Reto Gantenbein
+  description: Setup Gentoo portage configuration
+  license: GPLv3
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: Gentoo
+
+  galaxy_tags:
+    - gentoo
+    - portage
+
+dependencies: []
