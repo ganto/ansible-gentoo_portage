@@ -3,6 +3,15 @@
 # gentoo-portage default configuration
 ##
 
+# Set ACCEPT_KEYWORDS variable in `/etc/portage/make.conf`. If this value is
+# empty, the current value is not changed. For more information see
+# `man 5 make.conf`.
+gentoo_portage__accept_keywords: ''
+
+# Set MAKEOPTS variable in `/etc/portage/make.conf`. If this value is empty,
+# the current value is not changed. For more information see `man 5 make.conf`.
+gentoo_portage__makeopts: ''
+
 # Set profile. If this value is empty, the current profile is not changed.
 # For more information see `man 5 portage`. For a list of available profiles
 # run `eselect profile list`.

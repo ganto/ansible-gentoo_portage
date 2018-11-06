@@ -1,5 +1,21 @@
 ---
 
+- name: Set ACCEPT_KEYWORDS in make.conf
+  lineinfile:
+    path: /etc/portage/make.conf
+    regexp: '^ACCEPT_KEYWORDS='
+    line: 'ACCEPT_KEYWORDS="{{ gentoo_portage__accept_keywords }}"'
+    state: present
+  when: gentoo_portage__accept_keywords != ''
+
+- name: Set MAKEOPTS in make.conf
+  lineinfile:
+    path: /etc/portage/make.conf
+    regexp: '^MAKEOPTS='
+    line: 'MAKEOPTS="{{ gentoo_portage__makeopts }}"'
+    state: present
+  when: gentoo_portage__makeopts != ''
+
 - name: Include tasks to set profile
   include_tasks: profile.yml
   when: gentoo_portage__profile != ''
