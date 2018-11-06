@@ -1,5 +1,9 @@
 ---
 
+- name: Include tasks to set profile
+  include_tasks: profile.yml
+  when: gentoo_portage__profile != ''
+
 - name: Create portage repos.conf directory
   file:
     path: '/etc/portage/repos.conf'

@@ -1,0 +1,20 @@
+---
+
+- name: Query current profile
+  command: eselect --brief --color=no profile show
+  check_mode: no
+  changed_when: False
+  register: gentoo_portage__register_profile
+
+- name: Query available profiles
+  command: eselect --brief profile list
+  check_mode: no
+  changed_when: False
+  register: gentoo_portage__register_profile_list
+  when: not gentoo_portage__register_profile.stdout.strip() == gentoo_portage__profile
+
+- name: Set profile
+  command: 'eselect profile set {{ gentoo_portage__profile }}'
+  when:
+    - not gentoo_portage__register_profile_list is skipped
+    - gentoo_portage__profile in gentoo_portage__register_profile_list.stdout_lines

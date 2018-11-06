@@ -3,6 +3,11 @@
 # gentoo-portage default configuration
 ##
 
+# Set profile. If this value is empty, the current profile is not changed.
+# For more information see `man 5 portage`. For a list of available profiles
+# run `eselect profile list`.
+gentoo_portage__profile: ''
+
 # Portage repository synchronization URL
 gentoo_portage__sync_uri: 'rsync://rsync.gentoo.org/gentoo-portage'
 
