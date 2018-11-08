@@ -12,6 +12,10 @@ gentoo_portage__accept_keywords: ''
 # the current value is not changed. For more information see `man 5 make.conf`.
 gentoo_portage__makeopts: ''
 
+# Dictionary of custom variable definitions which must go into
+# `/etc/portage/make.conf`.
+gentoo_portage__makeconf_vars: {}
+
 # Set profile. If this value is empty, the current profile is not changed.
 # For more information see `man 5 portage`. For a list of available profiles
 # run `eselect profile list`.

@@ -16,6 +16,14 @@
     state: present
   when: gentoo_portage__makeopts != ''
 
+- name: Set custom variables in make.conf
+  lineinfile:
+    path: /etc/portage/make.conf
+    regexp: '^{{ item.key }}='
+    line: '{{ item.key }}="{{ item.value }}"'
+    state: present
+  with_dict: '{{ gentoo_portage__makeconf_vars }}'
+
 - name: Include tasks to set profile
   include_tasks: profile.yml
   when: gentoo_portage__profile != ''
