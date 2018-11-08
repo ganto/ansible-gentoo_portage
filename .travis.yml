@@ -1,0 +1,52 @@
+sudo: required
+language: python
+env:
+  - GENTOO_BASE=latest-stage3-amd64
+python:
+  - 3.6
+virtualenv:
+  system_site_packages: false
+before_install:
+  - sudo apt-get -qq update
+  - pip install --upgrade pip wheel setuptools
+  - pip install ansible ansible-lint yamllint
+before_script:
+  - GENTOO_MIRROR="http://distfiles.gentoo.org"
+  - GENTOO_CHROOT="${GENTOO_BASE}"
+  # Prepare Gentoo chroot (https://wiki.gentoo.org/wiki/Chroot)
+  - mkdir -p "${GENTOO_CHROOT}"
+  - wget -nv -O "${GENTOO_BASE}.txt" "${GENTOO_MIRROR}/releases/amd64/autobuilds/${GENTOO_BASE}.txt"
+  - ARCHIVE=$(grep -v ^# "${GENTOO_BASE}.txt" | awk '{ print $1 }')
+  - wget -nv -O - "${GENTOO_MIRROR}/releases/amd64/autobuilds/${ARCHIVE}" | tar xJ -C "${GENTOO_CHROOT}" --exclude=./dev/*
+  - mkdir "${GENTOO_CHROOT}/usr/portage"
+  - wget -nv -O - "${GENTOO_MIRROR}/releases/snapshots/current/portage-latest.tar.xz" | tar xJ -C "${GENTOO_CHROOT}/usr/portage" --strip-components=1
+  - sudo mount --rbind /dev "${GENTOO_CHROOT}"/dev
+  - sudo mount --make-rslave "${GENTOO_CHROOT}"/dev
+  - sudo mount -t proc /proc "${GENTOO_CHROOT}"/proc
+  - sudo mount --rbind /sys "${GENTOO_CHROOT}"/sys
+  - sudo mount --make-rslave "${GENTOO_CHROOT}"/sys
+  - sudo mount --rbind /tmp "${GENTOO_CHROOT}"/tmp
+  - cp /etc/resolv.conf "${GENTOO_CHROOT}"/etc
+  # Prepare Ansible configuration/inventory
+  - echo "${GENTOO_CHROOT} ansible_connection=chroot" > tests/inventory
+  - echo -e "[defaults]\nroles_path = .\ninventory = tests/inventory\nretry_files_enabled = false\n" > ansible.cfg
+  - ln -s . ganto.gentoo-portage
+script:
+  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      ansible --version"
+  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      echo '>>> Check Syntax'; 
+      ansible-playbook --syntax-check tests/playbooks/gentoo-portage.yml"
+  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      echo '>>> Ansible-Lint'; 
+      ansible-lint tests/playbooks/gentoo-portage.yml"
+  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      echo '>>> YAML-Lint'; 
+      yamllint defaults/main.yml"
+  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      echo '>>> Run playbook in Check-Mode'; 
+      ansible-playbook -vvv tests/playbooks/gentoo-portage.yml --check"
+  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      unset PYTHON_CFLAGS; 
+      echo '>>> Run playbook'; 
+      ansible-playbook -vvv tests/playbooks/gentoo-portage.yml"
