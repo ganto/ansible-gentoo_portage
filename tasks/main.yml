@@ -66,7 +66,7 @@
   register: gentoo_portage__register_equery
 
 - name: Install gentoolkit for equery support
-  command: emerge gentoolkit
+  command: emerge --quiet-build=y gentoolkit
   when: gentoo_portage__register_equery.rc != 0
 
 - name: Synchronize portage repository
@@ -80,6 +80,7 @@
   package:
     name: '{{ gentoo_portage__packages_default | union(gentoo_portage__packages) }}'
     state: present
+    quietbuild: yes
   register: gentoo_portage__register_pkg_install
 
 - name: Include tasks to setup eix database
