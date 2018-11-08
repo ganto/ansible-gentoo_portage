@@ -1,6 +1,8 @@
 Ansible Role: ganto.gentoo-portage
 ==================================
 
+**Travis CI:** [![Build Status](https://travis-ci.org/ganto/ansible-gentoo-portage.svg?branch=master)](https://travis-ci.org/ganto/ansible-gentoo-portage)
+
 Setup Gentoo [Portage configuration](https://wiki.gentoo.org/wiki/Portage#Configuration) such as sync URL or USE flags. It can be used to customize Gentoo stage3 installations as found in e.g. LXC/LXD container images.
 
 Requirements
@@ -13,6 +15,10 @@ Role Variables
 
 | Variable Name                            | Description                                                  |
 | ---------------------------------------- | ------------------------------------------------------------ |
+| `gentoo_portage__accept_keywords`        | Set ACCEPT_KEYWORDS variable in `/etc/portage/make.conf`     |
+| `gentoo_portage__makeopts`               | Set MAKEOPTS variable in `/etc/portage/make.conf`            |
+| `gentoo_portage__makeconf_vars`          | Custom variable definitions for `/etc/portage/make.conf`     |
+| `gentoo_portage__profile`                | Set Gentoo profile                                           |
 | `gentoo_portage__sync_uri`               | Portage repository synchronization URL                       |
 | `gentoo_portage__sync_type`              | Portage synchronization type (e.g. `git`, `rsync`)           |
 | `gentoo_portage__sync`                   | Synchronize portage repository after configuration update    |
