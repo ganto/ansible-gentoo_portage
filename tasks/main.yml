@@ -72,6 +72,8 @@
 - name: Synchronize portage repository
   portage:
     sync: yes
+  # equery required by the portage module might not be available yet
+  ignore_errors: "{{ ansible_check_mode }}"
   when: ((gentoo_portage__register_repo_config is changed) and
          (gentoo_portage__sync | bool)) or
         (gentoo_portage__sync_force | bool)
@@ -81,6 +83,8 @@
     name: '{{ gentoo_portage__packages_default | union(gentoo_portage__packages) }}'
     state: present
     quietbuild: yes
+  # equery required by the portage module might not be available yet
+  ignore_errors: "{{ ansible_check_mode }}"
   register: gentoo_portage__register_pkg_install
 
 - name: Include tasks to setup eix database
