@@ -47,5 +47,6 @@ script:
       echo '>>> Run playbook in Check-Mode'; 
       ansible-playbook -vvv tests/playbooks/gentoo-portage.yml --check"
   - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+      unset PYTHON_CFLAGS; 
       echo '>>> Run playbook'; 
       ansible-playbook -vvv tests/playbooks/gentoo-portage.yml"
