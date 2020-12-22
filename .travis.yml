@@ -3,7 +3,7 @@ language: python
 env:
   - GENTOO_BASE=latest-stage3-amd64
 python:
-  - 3.6
+  - 3.8
 virtualenv:
   system_site_packages: false
 before_install:
@@ -32,21 +32,21 @@ before_script:
   - echo -e "[defaults]\nroles_path = .\ninventory = tests/inventory\nretry_files_enabled = false\n" > ansible.cfg
   - ln -s . gentoo_portage
 script:
-  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+  - sudo sh -c ". ~travis/virtualenv/python3.8/bin/activate; 
       ansible --version"
-  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+  - sudo sh -c ". ~travis/virtualenv/python3.8/bin/activate; 
       echo '>>> Check Syntax'; 
       ansible-playbook --syntax-check tests/playbooks/gentoo-portage.yml"
-  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+  - sudo sh -c ". ~travis/virtualenv/python3.8/bin/activate; 
       echo '>>> Ansible-Lint'; 
       ansible-lint tests/playbooks/gentoo-portage.yml"
-  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+  - sudo sh -c ". ~travis/virtualenv/python3.8/bin/activate; 
       echo '>>> YAML-Lint'; 
       yamllint defaults/main.yml"
-  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+  - sudo sh -c ". ~travis/virtualenv/python3.8/bin/activate; 
       echo '>>> Run playbook in Check-Mode'; 
       ansible-playbook -vvv tests/playbooks/gentoo-portage.yml --check"
-  - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
+  - sudo sh -c ". ~travis/virtualenv/python3.8/bin/activate; 
       unset PYTHON_CFLAGS; 
       echo '>>> Run playbook'; 
       ansible-playbook -vvv tests/playbooks/gentoo-portage.yml"
