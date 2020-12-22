@@ -1,6 +1,6 @@
 ---
 ##
-# gentoo-portage default configuration
+# gentoo_portage default configuration
 ##
 
 # Set ACCEPT_KEYWORDS variable in `/etc/portage/make.conf`. If this value is
@@ -28,10 +28,10 @@ gentoo_portage__sync_uri: 'rsync://rsync.gentoo.org/gentoo-portage'
 gentoo_portage__sync_type: 'rsync'
 
 # Synchronize portage repository after configuration update
-gentoo_portage__sync: True
+gentoo_portage__sync: true
 
 # Force portage repository synchronization
-gentoo_portage__sync_force: False
+gentoo_portage__sync_force: false
 
 # Define global USE flags to be enabled
 gentoo_portage__global_use_enable: []
@@ -48,4 +48,4 @@ gentoo_portage__packages_default:
 gentoo_portage__packages: []
 
 # Delete downloaded package source archives after installation
-gentoo_portage__packages_clean_sources: True
+gentoo_portage__packages_clean_sources: true

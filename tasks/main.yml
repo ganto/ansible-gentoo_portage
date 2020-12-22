@@ -6,7 +6,7 @@
     regexp: '^ACCEPT_KEYWORDS='
     line: 'ACCEPT_KEYWORDS="{{ gentoo_portage__accept_keywords }}"'
     state: present
-  when: gentoo_portage__accept_keywords != ''
+  when: gentoo_portage__accept_keywords | length > 0
 
 - name: Set MAKEOPTS in make.conf
   lineinfile:
@@ -14,7 +14,7 @@
     regexp: '^MAKEOPTS='
     line: 'MAKEOPTS="{{ gentoo_portage__makeopts }}"'
     state: present
-  when: gentoo_portage__makeopts != ''
+  when: gentoo_portage__makeopts | length > 0
 
 - name: Set custom variables in make.conf
   lineinfile:
@@ -26,7 +26,7 @@
 
 - name: Include tasks to set profile
   include_tasks: profile.yml
-  when: gentoo_portage__profile != ''
+  when: gentoo_portage__profile | length > 0
 
 - name: Create portage repos.conf directory
   file:
