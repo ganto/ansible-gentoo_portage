@@ -3,4 +3,4 @@
 - name: Run Gentoo Portage role
   hosts: all
   roles:
-    - name: ganto.gentoo-portage
+    - name: ganto.gentoo_portage

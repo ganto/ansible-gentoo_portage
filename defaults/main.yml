@@ -1,6 +1,6 @@
 ---
 ##
-# gentoo-portage default configuration
+# gentoo_portage default configuration
 ##
 
 # Set ACCEPT_KEYWORDS variable in `/etc/portage/make.conf`. If this value is

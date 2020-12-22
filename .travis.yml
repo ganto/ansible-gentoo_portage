@@ -30,7 +30,7 @@ before_script:
   # Prepare Ansible configuration/inventory
   - echo "${GENTOO_CHROOT} ansible_connection=chroot" > tests/inventory
   - echo -e "[defaults]\nroles_path = .\ninventory = tests/inventory\nretry_files_enabled = false\n" > ansible.cfg
-  - ln -s . ganto.gentoo-portage
+  - ln -s . ganto.gentoo_portage
 script:
   - sudo sh -c ". ~travis/virtualenv/python3.6/bin/activate; 
       ansible --version"

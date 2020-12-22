@@ -1,7 +1,7 @@
-Ansible Role: ganto.gentoo-portage
+Ansible Role: ganto.gentoo_portage
 ==================================
 
-**Travis CI:** [![Build Status](https://travis-ci.org/ganto/ansible-gentoo-portage.svg?branch=master)](https://travis-ci.org/ganto/ansible-gentoo-portage)
+**Travis CI:** [![Build Status](https://travis-ci.org/ganto/ansible-gentoo_portage.svg?branch=master)](https://travis-ci.org/ganto/ansible-gentoo_portage)
 
 Setup Gentoo [Portage configuration](https://wiki.gentoo.org/wiki/Portage#Configuration) such as sync URL or USE flags. It can be used to customize Gentoo stage3 installations as found in e.g. LXC/LXD container images.
 
@@ -39,7 +39,7 @@ For a minimal setup simply include the role. The default configuration should be
 
     - hosts: all
       roles:
-         - name: ganto.gentoo-portage
+         - name: ganto.gentoo_portage
 
 License
 -------
@@ -50,4 +50,4 @@ License
 Author Information
 ------------------
 
-The `ganto.gentoo-portage` role was written by Reto Gantenbein | [e-mail](mailto:reto.gantenbein@linuxmonk.ch) | [GitHub](https://github.com/ganto)
+The `ganto.gentoo_portage` role was written by Reto Gantenbein | [e-mail](mailto:reto.gantenbein@linuxmonk.ch) | [GitHub](https://github.com/ganto)
