@@ -19,7 +19,7 @@ before_script:
   - ARCHIVE=$(grep -v ^# "${GENTOO_BASE}.txt" | awk '{ print $1 }')
   - wget -nv -O - "${GENTOO_MIRROR}/releases/amd64/autobuilds/${ARCHIVE}" | tar xJ -C "${GENTOO_CHROOT}" --exclude=./dev/*
   - mkdir "${GENTOO_CHROOT}/usr/portage"
-  - wget -nv -O - "${GENTOO_MIRROR}/releases/snapshots/current/portage-latest.tar.xz" | tar xJ -C "${GENTOO_CHROOT}/usr/portage" --strip-components=1
+  - wget -nv -O - "${GENTOO_MIRROR}/snapshots/portage-latest.tar.xz" | tar xJ -C "${GENTOO_CHROOT}/usr/portage" --strip-components=1
   - sudo mount --rbind /dev "${GENTOO_CHROOT}"/dev
   - sudo mount --make-rslave "${GENTOO_CHROOT}"/dev
   - sudo mount -t proc /proc "${GENTOO_CHROOT}"/proc
