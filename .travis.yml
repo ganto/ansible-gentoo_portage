@@ -1,3 +1,4 @@
+---
 sudo: required
 language: python
 env:
@@ -50,3 +51,8 @@ script:
       unset PYTHON_CFLAGS; 
       echo '>>> Run playbook'; 
       ansible-playbook -vvv tests/playbooks/gentoo-portage.yml"
+notifications:
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications/
+    on_success: always
