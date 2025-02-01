@@ -1,7 +1,6 @@
 ---
-##
-# gentoo_portage default configuration
-##
+# Copyright (C) 2018-2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# SPDX-License-Identifier: LGPL-3.0-or-later
 
 # Set ACCEPT_KEYWORDS variable in `/etc/portage/make.conf`. If this value is
 # empty, the current value is not changed. For more information see
