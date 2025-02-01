@@ -1,0 +1,35 @@
+---
+# Copyright (C) 2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: collections.yml
+driver:
+  name: podman
+platforms:
+  - name: instance
+    image: "docker.io/gentoo/stage3:latest"
+    pre_build_image: True
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+provisioner:
+  name: ansible
+  log: True
+  options:
+    vvv: True
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+scenario:
+  test_sequence:
+    - dependency
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - verify
+    - cleanup
+    - destroy

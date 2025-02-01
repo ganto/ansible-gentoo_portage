@@ -42,7 +42,6 @@ gentoo_portage__global_use_disable: []
 # List of default packages to be installed
 gentoo_portage__packages_default:
   - 'eix'
-  - 'layman'
 
 # List of user-defined packages to be installed
 gentoo_portage__packages: []

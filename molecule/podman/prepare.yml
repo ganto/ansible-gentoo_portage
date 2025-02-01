@@ -1,0 +1,28 @@
+---
+# Copyright (C) 2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- name: Prepare
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Create Gentoo repository directory
+      ansible.builtin.file:
+        path: '/var/db/repos/gentoo'
+        state: directory
+        owner: portage
+        group: portage
+        mode: '0755'
+
+    - name: Download latest portage snapshot
+      ansible.builtin.unarchive:
+        src: 'https://distfiles.gentoo.org/snapshots/portage-latest.tar.xz'
+        dest: '/var/db/repos/gentoo'
+        remote_src: yes
+        extra_opts:
+          # strip leading 'portage/' directory
+          - '--strip-components'
+          - '1'
+        owner: portage
+        group: portage

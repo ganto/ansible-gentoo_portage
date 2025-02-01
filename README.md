@@ -1,7 +1,6 @@
 Ansible Role: ganto.gentoo_portage
 ==================================
 
-**Travis CI:** [![Build Status](https://travis-ci.org/ganto/ansible-gentoo_portage.svg?branch=master)](https://travis-ci.org/ganto/ansible-gentoo_portage)
 **Ansible Galaxy:** [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-gentoo__portage-blue.svg?style=popout-square)](https://galaxy.ansible.com/ganto/gentoo_portage)
 
 Setup Gentoo [Portage configuration](https://wiki.gentoo.org/wiki/Portage#Configuration) such as sync URL or USE flags. It can be used to customize Gentoo stage3 installations as found in e.g. LXC/LXD container images.

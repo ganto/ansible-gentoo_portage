@@ -1,0 +1,13 @@
+---
+# Copyright (C) 2020-2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+- name: Converge
+  hosts: all
+
+  vars:
+    # Don't synchronize portage to go easy on mirrors
+    gentoo_portage__sync: false
+
+  roles:
+    - role: ganto.gentoo_portage

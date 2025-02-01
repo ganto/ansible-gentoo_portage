@@ -1,7 +1,7 @@
 ---
 
 - name: Create eix database directory
-  file:
+  ansible.builtin.file:
     path: '/var/cache/eix'
     state: directory
     owner: 'portage'
@@ -9,10 +9,10 @@
     mode: 0755
 
 - name: Check if eix database exists
-  stat:
+  ansible.builtin.stat:
     path: '/var/cache/eix/portage.eix'
   register: gentoo_portage__register_eix_database
 
 - name: Create eix database
-  command: eix-update
+  ansible.builtin.command: eix-update
   when: not gentoo_portage__register_eix_database.stat.exists
