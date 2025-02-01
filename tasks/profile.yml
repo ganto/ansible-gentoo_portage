@@ -14,7 +14,7 @@
   when: not gentoo_portage__register_profile.stdout.strip() == gentoo_portage__profile
 
 - name: Set profile
-  ansible.builtin.command: 'eselect profile set {{ gentoo_portage__profile }}'
+  ansible.builtin.command: 'eselect profile set {{ gentoo_portage__profile }}'  # noqa no-changed-when
   when:
     - not gentoo_portage__register_profile_list is skipped
     - gentoo_portage__profile in gentoo_portage__register_profile_list.stdout_lines

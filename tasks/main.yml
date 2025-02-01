@@ -34,7 +34,7 @@
     state: directory
     owner: 'root'
     group: 'root'
-    mode: 0755
+    mode: '0755'
 
 - name: Gentoo portage repository configuration
   ansible.builtin.template:
@@ -42,7 +42,7 @@
     dest: '/etc/portage/repos.conf/gentoo.conf'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   register: gentoo_portage__register_repo_config
 
 - name: Global USE flags configuration
@@ -66,7 +66,7 @@
   register: gentoo_portage__register_equery
 
 - name: Install gentoolkit for equery support
-  ansible.builtin.command: emerge --quiet-build=y gentoolkit
+  ansible.builtin.command: emerge --quiet-build=y gentoolkit  # noqa no-changed-when
   when: gentoo_portage__register_equery.rc != 0
 
 - name: Synchronize portage repository
@@ -94,7 +94,7 @@
     - ('eix' in (gentoo_portage__packages_default | union(gentoo_portage__packages)))
 
 - name: Cleanup package sources after installation
-  ansible.builtin.command: eclean-dist
+  ansible.builtin.command: eclean-dist  # noqa no-changed-when
   when:
     - gentoo_portage__register_pkg_install is changed
     - gentoo_portage__packages_clean_sources | bool
