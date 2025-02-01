@@ -34,7 +34,7 @@
     state: directory
     owner: 'root'
     group: 'root'
-    mode: 0755
+    mode: '0755'
 
 - name: Gentoo portage repository configuration
   ansible.builtin.template:
@@ -42,7 +42,7 @@
     dest: '/etc/portage/repos.conf/gentoo.conf'
     owner: 'root'
     group: 'root'
-    mode: 0644
+    mode: '0644'
   register: gentoo_portage__register_repo_config
 
 - name: Global USE flags configuration
