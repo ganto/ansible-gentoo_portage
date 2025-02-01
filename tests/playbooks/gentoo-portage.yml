@@ -1,6 +1,0 @@
----
-
-- name: Run Gentoo Portage role
-  hosts: all
-  roles:
-    - name: gentoo_portage
