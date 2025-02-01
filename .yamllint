@@ -1,0 +1,19 @@
+---
+extends: default
+rules:
+  truthy: disable
+  # ansible-lint compatibility
+  # https://ansible.readthedocs.io/projects/lint/rules/yaml/#yamllint-configuration
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  document-start: disable
+  line-length:
+    max: 120
+    level: warning
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
