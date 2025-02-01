@@ -14,5 +14,5 @@
   register: gentoo_portage__register_eix_database
 
 - name: Create eix database
-  ansible.builtin.command: eix-update
+  ansible.builtin.command: eix-update  # noqa no-changed-when
   when: not gentoo_portage__register_eix_database.stat.exists
