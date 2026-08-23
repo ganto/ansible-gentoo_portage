@@ -49,7 +49,7 @@ jobs:
       - name: Add checkout to Ansible role path.
         run: |
           mkdir -p ~/.ansible/roles
-          ln -s $(pwd) ~/.ansible/roles/
+          ln -s "$(pwd)" ~/.ansible/roles/
         shell: bash
 
       - name: Lint code.
