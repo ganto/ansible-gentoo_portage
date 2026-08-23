@@ -9,6 +9,12 @@ name: CI
     - cron: "42 1 1 * *"
   workflow_dispatch:
 
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 defaults:
   run:
     working-directory: 'ganto.gentoo_portage'
@@ -18,15 +24,19 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           path: 'ganto.gentoo_portage'
+          persist-credentials: false
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.x'
 
@@ -39,7 +49,7 @@ jobs:
       - name: Add checkout to Ansible role path.
         run: |
           mkdir -p ~/.ansible/roles
-          ln -s $(pwd) ~/.ansible/roles/
+          ln -s "$(pwd)" ~/.ansible/roles/
         shell: bash
 
       - name: Lint code.
@@ -47,18 +57,36 @@ jobs:
           yamllint .
           ansible-lint .
 
+  actionlint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read  # for actions/checkout to fetch code
+      checks: write   # for reviewdog github-pr-check reporter to report findings
+    steps:
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: reviewdog/action-actionlint@dbe5299849118fd6f099ba563d263d770955a64a # v1
+
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           path: 'ganto.gentoo_portage'
+          persist-credentials: false
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.x'
 

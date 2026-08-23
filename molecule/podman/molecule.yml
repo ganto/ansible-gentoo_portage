@@ -12,7 +12,6 @@ platforms:
   - name: instance
     image: "docker.io/gentoo/stage3:latest"
     pre_build_image: True
-    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 provisioner:
