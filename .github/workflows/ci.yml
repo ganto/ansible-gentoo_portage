@@ -59,6 +59,7 @@ jobs:
 
   actionlint:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read  # for actions/checkout to fetch code
       checks: write   # for reviewdog github-pr-check reporter to report findings
