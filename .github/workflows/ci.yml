@@ -71,7 +71,7 @@ jobs:
           persist-credentials: false
 
       - name: Run actionlint
-        uses: reviewdog/action-actionlint@3cbf14efd750961dba35fccbf00f9e14028cb1f5 # v1
+        uses: reviewdog/action-actionlint@78b296370c5c75abca79860e9baa9846e3286a29 # v1
 
   molecule:
     name: Molecule
